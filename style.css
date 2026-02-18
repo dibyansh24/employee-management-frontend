@@ -1,0 +1,172 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-page {
+    background-image: url("https://plus.unsplash.com/premium_vector-1683141019260-d3dc2bf5217b?w=352&dpr=1&h=367&auto=format&fit=crop&q=60&ixlib=rb-4.1.0");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+
+.login-container {
+    width: 320px;
+    background-color: white;
+    padding: 20px;
+    margin: 120px auto;
+    border-radius: 6px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#error-ms
+{
+    color: red;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.employee-page {
+    background: linear-gradient(to right, #e3f2fd, #ffffff);
+    min-height: 100vh;
+}
+
+.top-bar {
+    width: 75%;
+    margin: 30px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-link,
+.logout-btn {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.back-link {
+    background-color: #1976d2;
+}
+
+.logout-btn {
+    background-color: #e53935;
+}
+
+.back-link:hover {
+    background-color: #115293;
+}
+
+.logout-btn:hover {
+    background-color: #c62828;
+}
+
+.table-container {
+    width: 75%;
+    margin: 40px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+.search-box {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #e0f7fa;
+    cursor: pointer;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.password-box {
+    display: flex;
+    align-items: center;
+}
+
+.password-box span {
+    margin-left: -25px;
+    cursor: pointer;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#noData {
+    color: red;
+    text-align: center;
+    display: none;
+}
+

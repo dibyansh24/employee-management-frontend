@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="employee-page">
+
+<div class="top-bar">
+    <a href="index.html" class="back-link">← Back</a>
+    <a href="index.html" class="logout-btn" onclick="logout()">Logout</a>
+</div>
+
+<div class="table-container">
+    <h2>Employee Details</h2>
+    <p id="welcomeMsg"></p>     
+
+   
+    <div class="add-employee">
+        <h3>Add Employee</h3>
+
+        <input type="text" id="empId" placeholder="Employee ID">
+        <input type="text" id="empName" placeholder="Name">
+        <input type="email" id="empEmail" placeholder="Email">
+
+        <select id="empDept">
+            <option value="">Select Department</option>
+            <option value="HR">HR</option>
+            <option value="IT">IT</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+        </select>
+
+        <button onclick="addEmployee()">Add Employee</button>
+    </div>
+
+     <div class="controls">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by ID, Name, Email"
+            onkeyup="filterTable()"
+        >
+
+        <select onchange="sortTable(this.value)">
+            <option value="">Sort</option>
+            <option value="id">Employee ID</option>
+            <option value="name">Name</option>
+        </select>
+
+        <select id="deptFilter" onchange="filterTable()">
+            <option value="">All Departments</option>
+            <option value="hr">HR</option>
+            <option value="it">IT</option>
+            <option value="finance">Finance</option>
+            <option value="marketing">Marketing</option>
+        </select>
+    </div>
+
+    <p id="noData">No employees found</p>
+
+
+    <table id="employeeTable">
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody id="employeeBody">
+        
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "index.html";
+}
+
+
+const username = localStorage.getItem("username");
+if (username) {
+    document.getElementById("welcomeMsg").innerText =
+        "Welcome, " + username.charAt(0).toUpperCase() + username.slice(1);
+}
+
+
+function logout() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
+    window.location.href = "index.html";
+}
+
+
+const employees = [
+    { id: "EMP001", name: "Rahul Sharma", email: "rahul@gmail.com", dept: "HR" },
+    { id: "EMP002", name: "Anita Verma", email: "anita@gmail.com", dept: "Finance" },
+    { id: "EMP003", name: "Rohit Kumar", email: "rohit@gmail.com", dept: "IT" },
+    { id: "EMP004", name: "Neha Singh", email: "neha@gmail.com", dept: "Marketing" }
+];
+
+
+function renderTable(data) {
+    const tbody = document.getElementById("employeeBody");
+    tbody.innerHTML = "";
+
+    data.forEach(emp => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${emp.id}</td>
+            <td>${emp.name}</td>
+            <td>${emp.email}</td>
+            <td>${emp.dept}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+
+function addEmployee() {
+    const id = document.getElementById("empId").value.trim();
+    const name = document.getElementById("empName").value.trim();
+    const email = document.getElementById("empEmail").value.trim();
+    const dept = document.getElementById("empDept").value;
+
+    if (id === "" || name === "" || email === "" || dept === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    const newEmployee = { id, name, email, dept };
+    employees.push(newEmployee);
+
+    renderTable(employees);
+
+    document.getElementById("empId").value = "";
+    document.getElementById("empName").value = "";
+    document.getElementById("empEmail").value = "";
+    document.getElementById("empDept").value = "";
+}
+
+
+function filterTable() {
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    const selectedDept = document.getElementById("deptFilter").value;
+
+    const filtered = employees.filter(emp => {
+        const matchesSearch =
+            emp.id.toLowerCase().includes(searchText) ||
+            emp.name.toLowerCase().includes(searchText) ||
+            emp.email.toLowerCase().includes(searchText);
+
+        const matchesDept =
+            selectedDept === "" || emp.dept.toLowerCase() === selectedDept;
+
+        return matchesSearch && matchesDept;
+    });
+
+    renderTable(filtered);
+
+    document.getElementById("noData").style.display =
+        filtered.length === 0 ? "block" : "none";
+}
+
+
+function sortTable(type) {
+    if (!type) return;
+
+    employees.sort((a, b) =>
+        a[type].localeCompare(b[type])
+    );
+
+    renderTable(employees);
+}
+
+
+renderTable(employees);
+</script>
+
+</body>
+</html>
